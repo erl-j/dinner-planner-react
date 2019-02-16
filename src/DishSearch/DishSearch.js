@@ -6,30 +6,31 @@ class DishSearch extends Component {
   constructor(props){
     super(props);
     this.state={
-      searchResults:[]
+      searchResults:[],
+      isSearching:false
     }
     this.getDishes=this.getDishes.bind(this);
   }
 
     getDishes(query){
+      this.setState({isSearching:true});
       this.props.api.searchDishes(query).then((res)=>
-        {this.setState({searchResults:res});
+        {this.setState({searchResults:res,isSearching:false});
           console.log(res);
         })
     }
 
     
     render() {
-
       let content;
-
       if(this.props.show){
         content=<div className="SearchDish">
         <h3>Find a dish</h3>
         <SearchBar searchDishes={this.getDishes}/>
         <SearchResults 
           searchResults={this.state.searchResults} 
-          onClickDish={this.props.onClickDish}/>
+          onClickDish={this.props.onClickDish}
+          isSearching={this.state.isSearching}/>
       </div>;
       }
       return <React.Fragment>{content}</React.Fragment>;

@@ -11,20 +11,29 @@ class SearchResults extends Component {
   }
 
   render() {
-    let dishesList = null;
+    
+    let content = null;
+    if(this.props.isSearching){
+      content=<div class="spinner-grow" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
 
-    dishesList = this.props.searchResults.map(dish => (
+    }
+    else{
+    content = this.props.searchResults.map(dish => (
       <li key={dish.id}
       onClick={()=>this.props.onClickDish(dish.id)}
       >
       {dish.title}
+
       </li>
     ));
+    }
 
     return (
       <div className="Dishes">
         <h3>Dishes</h3>
-        <ul>{dishesList}</ul>
+        <ul>{content}</ul>
       </div>
     );
   }

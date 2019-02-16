@@ -18,7 +18,9 @@ class DishDetails extends Component {
       content=<h5>{this.props.dish.title}</h5>;
     }
     else{
-      content=<h5>loading..</h5>;
+      content=<div class="spinner-grow" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
     }
     return (
       <div className="DishDetails">
