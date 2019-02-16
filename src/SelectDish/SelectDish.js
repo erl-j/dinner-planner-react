@@ -19,11 +19,13 @@ class SelectDish extends Component {
   }
 
   selectDish(id) {
+    this.setState({
+      showDetails: true,
+      showSearch: false
+    })
     this.props.api.getRecipe(id).then(dish =>
       this.setState({
         selectedDish: dish,
-        showDetails: true,
-        showSearch: false
       }));
   }
 
@@ -56,9 +58,10 @@ class SelectDish extends Component {
 
         {dishDetails}
         <DishSearch 
-        className="col-sm-9 border-right" 
+        className="col-sm-9 border-right"
         onClickDish={(id)=>this.selectDish(id)}
         api={this.props.api}
+        show={this.state.showSearch}
         />
       </div>
     );

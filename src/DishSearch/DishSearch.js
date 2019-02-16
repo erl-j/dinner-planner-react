@@ -20,15 +20,20 @@ class DishSearch extends Component {
 
     
     render() {
-      return (
-        <div className="SearchDish">
-          <h3>Find a dish</h3>
-          <SearchBar searchDishes={this.getDishes}/>
-          <SearchResults 
-            searchResults={this.state.searchResults} 
-            onClickDish={this.props.onClickDish}/>
-        </div>
-      );
+
+      let content;
+
+      if(this.props.show){
+        content=<div className="SearchDish">
+        <h3>Find a dish</h3>
+        <SearchBar searchDishes={this.getDishes}/>
+        <SearchResults 
+          searchResults={this.state.searchResults} 
+          onClickDish={this.props.onClickDish}/>
+      </div>;
+      }
+      return <React.Fragment>{content}</React.Fragment>;
+      
     }
   }
   
