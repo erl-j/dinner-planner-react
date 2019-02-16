@@ -1,8 +1,9 @@
 import ObservableModel from "./ObservableModel";
+import API_KEY from "./API_KEY";
 
-const BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com";
+const BASE_URL = "http://sunset.nada.kth.se:8080/iprog/group/73";
 const httpOptions = {
-  headers: { "X-Mashape-Key": "YOUR_API_KEY" }
+  headers: { "X-Mashape-Key": new API_KEY().key }
 };
 
 class DinnerModel extends ObservableModel {
@@ -10,6 +11,7 @@ class DinnerModel extends ObservableModel {
     super();
     this._numberOfGuests = 4;
     this.getNumberOfGuests();
+    this._selectedDish="";
   }
 
   /**
@@ -29,6 +31,27 @@ class DinnerModel extends ObservableModel {
     this.notifyObservers();
   }
 
+  getSelectedDish(){
+    return this._selectedDish;
+  }
+
+  /**
+   * Set selected dish
+   * @param {number} id
+   */
+  selectDish(id){
+    this.getRecipe(id)
+    .then(res=>{this._selectedDish=res;
+    console.log(this._selectedDish);})
+    .then(this.notifyObservers("dish selected"));
+  }
+
+  getRecipe(id){
+    const url = `${BASE_URL}/recipes/`+id+`/information`;
+    return fetch(url, httpOptions).then(this.processResponse);
+  }
+
+
   // API methods
 
   /**
@@ -42,6 +65,7 @@ class DinnerModel extends ObservableModel {
 
   processResponse(response) {
     if (response.ok) {
+      
       return response.json();
     }
     throw response;
