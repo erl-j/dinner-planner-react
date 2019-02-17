@@ -10,6 +10,7 @@ class DishSearch extends Component {
       isSearching:false
     }
     this.getDishes=this.getDishes.bind(this);
+    
   }
 
     getDishes(query){
@@ -20,6 +21,9 @@ class DishSearch extends Component {
         })
     }
 
+    componentDidMount(){
+      this.getDishes("");
+    }
     
     render() {
       let content;

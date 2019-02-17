@@ -54,6 +54,7 @@ class SelectDish extends Component {
           nGuests={this.props.nGuests} 
           changeNGuests={this.props.changeNGuests}
           menu={this.props.menu}
+          removeFromMenu={this.props.removeFromMenu}
         />
 
         {dishDetails}

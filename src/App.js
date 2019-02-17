@@ -26,6 +26,7 @@ class App extends Component {
     };
     this.api=new API();
     this.addToMenu=this.addToMenu.bind(this);
+    this.removeFromMenu=this.removeFromMenu.bind(this);
   }
 
   addToMenu(type,dish){
@@ -33,6 +34,18 @@ class App extends Component {
     newMenu[type]=dish;
     this.setState({menu:newMenu});
   }
+
+removeFromMenu(id){
+    console.log("trying remove");
+    let newMenu=this.state.menu;
+    let menuKeys=Object.keys(newMenu);
+    menuKeys.forEach(key=>{
+      if(newMenu[key].id==id){
+        delete newMenu[key];
+      }
+    })
+    this.setState({menu:newMenu});
+}
 
   render() {
     return (
@@ -50,10 +63,11 @@ class App extends Component {
               nGuests={this.state.nGuests} 
               menu={this.state.menu} 
               changeNGuests={(newValue)=>{
-                this.setState({nGuests:newValue});
+                this.setState({nGuests:Math.max(0,newValue)});
                 console.log("app says: changed number of guests");
                 }}
               addToMenu={this.addToMenu}
+              removeFromMenu={this.removeFromMenu}
               />}
           />
         </header>

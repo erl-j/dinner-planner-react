@@ -14,19 +14,22 @@ class SearchResults extends Component {
     
     let content = null;
     if(this.props.isSearching){
-      content=<div class="spinner-grow" role="status">
-      <span class="sr-only">Loading...</span>
+      content=<div className="spinner-grow" role="status">
+      <span className="sr-only">Loading...</span>
     </div>
 
     }
     else{
     content = this.props.searchResults.map(dish => (
-      <li key={dish.id}
+      <div className="card" width="width:18rem;" key={dish.id}
       onClick={()=>this.props.onClickDish(dish.id)}
       >
-      {dish.title}
-
-      </li>
+        <img className="card-img-top forceRatio" src={"https://spoonacular.com/recipeImages/"+dish.image}></img>
+        <div className="card-body">
+          <h5 className="card-title">{dish.title.substring(0,15)}</h5>
+        </div>
+      
+      </div>
     ));
     }
 

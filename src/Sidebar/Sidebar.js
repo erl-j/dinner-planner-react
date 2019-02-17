@@ -18,12 +18,27 @@ class Sidebar extends Component {
   render() {
     let table;
 
-    if(this.props.menu){
+    if(Object.keys(this.props.menu).length>0){
       table=
       <table>
         <tbody>
-        {Object.values(this.props.menu).map(dsh=><tr key={dsh.id}><td>{dsh.title}</td></tr>)}
-      </tbody>
+          {Object.values(this.props.menu).map(dsh=>
+          <tr onClick={()=>{this.props.removeFromMenu(dsh.id);
+            console.log("should remove");
+          }} key={dsh.id}>
+          <td>{dsh.title.length<20? dsh.title: dsh.title.substring(0,17)+"..." }
+          </td>
+          <td>{dsh.extendedIngredients.length*this.props.nGuests}</td>
+          </tr>)}
+        </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td>{Object.values(this.props.menu)
+                .map(dsh=>dsh.extendedIngredients.length)
+                .reduce((tot,ds)=>tot+ds)*this.props.nGuests}</td>
+            </tr>
+          </tfoot>
       </table>
   }
 
