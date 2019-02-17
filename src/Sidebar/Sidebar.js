@@ -16,11 +16,10 @@ class Sidebar extends Component {
   }
 
   render() {
-    let table;
+    let tableBody;
 
     if(Object.keys(this.props.menu).length>0){
-      table=
-      <table>
+      tableBody=
         <tbody>
           {Object.values(this.props.menu).map(dsh=>
           <tr onClick={()=>{this.props.removeFromMenu(dsh.id);
@@ -31,15 +30,8 @@ class Sidebar extends Component {
           <td>{dsh.extendedIngredients.length*this.props.nGuests}</td>
           </tr>)}
         </tbody>
-          <tfoot>
-            <tr>
-              <td></td>
-              <td>{Object.values(this.props.menu)
-                .map(dsh=>dsh.extendedIngredients.length)
-                .reduce((tot,ds)=>tot+ds)*this.props.nGuests}</td>
-            </tr>
-          </tfoot>
-      </table>
+
+ 
   }
 
     return (
@@ -55,7 +47,28 @@ class Sidebar extends Component {
           <br />
           Total number of guests: {this.props.nGuests}
         </p>
-        {table}
+        <table className="table">
+        <thead className="thead-dark">
+        <tr>
+          <th>dish name</th>
+          <th>cost</th>
+        </tr>
+        
+        </thead>
+        {tableBody}
+        <tfoot>
+            <tr>
+              <td></td>
+              <td>{
+                Object.keys(this.props.menu).length>0?(
+                Object.values(this.props.menu)
+                .map(dsh=>dsh.extendedIngredients.length)
+                .reduce((tot,ds)=>tot+ds)*this.props.nGuests):0}
+              </td>
+                
+            </tr>
+          </tfoot>
+        </table>
       </div>
     );
   }
