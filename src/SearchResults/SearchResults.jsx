@@ -21,12 +21,12 @@ class SearchResults extends Component {
     }
     else{
     content = this.props.searchResults.map(dish => (
-      <div className="card" width="width:18rem;" key={dish.id}
+      <div className="card" key={dish.id}
       onClick={()=>this.props.onClickDish(dish.id)}
       >
         <img className="card-img-top forceRatio" src={"https://spoonacular.com/recipeImages/"+dish.image}></img>
         <div className="card-body">
-          <h5 className="card-title">{dish.title.substring(0,15)}</h5>
+          <span className="card-text">{dish.title.substring(0,13)}</span>
         </div>
       
       </div>

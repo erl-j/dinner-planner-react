@@ -1,5 +1,19 @@
 .card{
     width:10rem;
+    float:left;
+    margin: 1rem;
+}
+
+@keyframes zoomer{
+    0%{}
+    100%{transform: scale(1.1);}
+}
+
+.card:hover{
+    animation-name: zoomer;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    
 }
 
 .forceRatio{

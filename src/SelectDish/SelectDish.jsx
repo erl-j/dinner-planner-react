@@ -3,7 +3,6 @@ import Sidebar from "../Sidebar/Sidebar";
 import DishSearch from "../DishSearch/DishSearch";
 import DishDetails from "../DishDetails/DishDetails";
 import "./SelectDish.css";
-import API from "../data/API";
  
 // PROPS: VARS nGuests, selected dish. CFNS:
 class SelectDish extends Component {
@@ -41,25 +40,25 @@ class SelectDish extends Component {
 
     let dishDetails;
     if(this.state.showDetails){
-      dishDetails=<DishDetails 
-      className="col-sm-9 border-right"
+      dishDetails=<DishDetails className={this.state.showDetails?"col-sm-9 border-right":"hidden"}
       dish={this.state.selectedDish} 
       onClickAdd={this.props.addToMenu}
       onClickBack={this.resetSelection} 
+      nGuests={this.props.nGuests}
       />;
     }
     return (
       <div className="row mh-100 no-gutters">
-        <Sidebar className="col-sm-3 border"
+        <Sidebar className="col-sm-3 border-right"
           nGuests={this.props.nGuests} 
           changeNGuests={this.props.changeNGuests}
           menu={this.props.menu}
           removeFromMenu={this.props.removeFromMenu}
+          onConfirmDinner={this.props.onConfirmDinner}
         />
 
         {dishDetails}
-        <DishSearch 
-        className="col-sm-9 border-right"
+        <DishSearch className={this.state.showSearch?"col-sm-9 border-right":"hidden"}
         onClickDish={(id)=>this.selectDish(id)}
         api={this.props.api}
         show={this.state.showSearch}

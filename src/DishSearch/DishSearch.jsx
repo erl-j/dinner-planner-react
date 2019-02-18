@@ -28,7 +28,7 @@ class DishSearch extends Component {
     render() {
       let content;
       if(this.props.show){
-        content=<div className="SearchDish">
+        content=<div>
         <h3>Find a dish</h3>
         <SearchBar searchDishes={this.getDishes}/>
         <SearchResults 
