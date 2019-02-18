@@ -26,7 +26,7 @@ class SearchResults extends Component {
       >
         <img className="card-img-top forceRatio" src={"https://spoonacular.com/recipeImages/"+dish.image}></img>
         <div className="card-body">
-          <span className="card-text">{dish.title.substring(0,13)}</span>
+          <span className="card-text">{dish.title.length<14?dish.title:(dish.title.substring(0,11)+"...")}</span>
         </div>
       
       </div>
@@ -35,8 +35,8 @@ class SearchResults extends Component {
 
     return (
       <div className="Dishes">
-        <h3>Dishes</h3>
-        <ul>{content}</ul>
+        <h3>Results</h3>
+        {content}
       </div>
     );
   }

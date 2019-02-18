@@ -18,22 +18,25 @@ class DishDetails extends Component {
       content =
         <div className="row mh-100 no-gutters">
           <div className="col-sm-5">
-            <h5>{this.props.dish.title}</h5>
-            <p>{this.props.dish.instructions}</p>
+            <h3>{this.props.dish.title}</h3>
             <button
               className="btn btn-outline-dark"
               onClick={() => this.props.onClickAdd(this.props.dish.title, this.props.dish)}>
               Add this to menu
             </button>
+            <button
+              className="btn btn-outline-dark"
+              onClick={() => this.props.onClickBack()}>
+              Back to search
+            </button>
+            <p>{this.props.dish.instructions}</p>
           </div>
           <div className="col-sm-4">
-          <IngredientsList 
-            ingredients={this.props.dish.extendedIngredients} 
-            nGuests={this.props.nGuests} 
-            servings={this.props.dish.servings}/>
+            <IngredientsList
+              ingredients={this.props.dish.extendedIngredients}
+              nGuests={this.props.nGuests}
+              servings={this.props.dish.servings} />
           </div>
-
-
         </div>
     }
     else {
@@ -43,12 +46,6 @@ class DishDetails extends Component {
     }
     return (
       <div >
-        <h3>Dish Details</h3>
-        <button
-          className="btn btn-outline-dark"
-          onClick={() => this.props.onClickBack()}>
-          Back to search
-        </button>
         {content}
       </div>
     );

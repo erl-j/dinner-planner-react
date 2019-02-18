@@ -65,8 +65,8 @@ class App extends Component {
                 api={this.api}
                 nGuests={this.state.nGuests}
                 menu={this.state.menu}
-                changeNGuests={(newValue) => {
-                  this.setState({ nGuests: Math.max(0, newValue) });
+                changeNGuests={(increment) => {
+                  this.setState({ nGuests: Math.max(this.state.nGuests+increment, 0) });
                   console.log("app says: changed number of guests");
                 }}
                 addToMenu={this.addToMenu}

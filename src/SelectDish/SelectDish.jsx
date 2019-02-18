@@ -3,7 +3,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import DishSearch from "../DishSearch/DishSearch";
 import DishDetails from "../DishDetails/DishDetails";
 import "./SelectDish.css";
- 
+
 // PROPS: VARS nGuests, selected dish. CFNS:
 class SelectDish extends Component {
   constructor(props) {
@@ -38,31 +38,40 @@ class SelectDish extends Component {
 
   render() {
 
-    let dishDetails;
-    if(this.state.showDetails){
-      dishDetails=<DishDetails className={this.state.showDetails?"col-sm-9 border-right":"hidden"}
-      dish={this.state.selectedDish} 
-      onClickAdd={this.props.addToMenu}
-      onClickBack={this.resetSelection} 
-      nGuests={this.props.nGuests}
-      />;
+    let dishDetails = <span></span>;
+    if (this.state.showDetails) {
+      dishDetails =
+        <div className={this.state.showDetails ? "col-9" : "hidden"}>
+          <DishDetails 
+            dish={this.state.selectedDish}
+            onClickAdd={this.props.addToMenu}
+            onClickBack={this.resetSelection}
+            nGuests={this.props.nGuests}
+          />
+        </div>
     }
     return (
-      <div className="row mh-100 no-gutters">
-        <Sidebar className="col-sm-3 border-right"
-          nGuests={this.props.nGuests} 
-          changeNGuests={this.props.changeNGuests}
-          menu={this.props.menu}
-          removeFromMenu={this.props.removeFromMenu}
-          onConfirmDinner={this.props.onConfirmDinner}
-        />
+      <div className="container-fluid">
+        <div className="row no-gutters">
+          <div className="col-sm-3 border-right">
+            <Sidebar
+              nGuests={this.props.nGuests}
+              changeNGuests={this.props.changeNGuests}
+              menu={this.props.menu}
+              removeFromMenu={this.props.removeFromMenu}
+              onConfirmDinner={this.props.onConfirmDinner}
+            />
+          </div>
 
-        {dishDetails}
-        <DishSearch className={this.state.showSearch?"col-sm-9 border-right":"hidden"}
-        onClickDish={(id)=>this.selectDish(id)}
-        api={this.props.api}
-        show={this.state.showSearch}
-        />
+          {dishDetails}
+          <div className={this.state.showSearch ? "col-sm-9" : "hidden"}>
+            <DishSearch
+              onClickDish={(id) => this.selectDish(id)}
+              api={this.props.api}
+              show={this.state.showSearch}
+            />
+          </div>
+        </div>
       </div>
     );
   }

@@ -7,6 +7,8 @@ class Sidebar extends Component {
   render() {
     let tableBody;
 
+    let fullW = { width: '100%' }
+
     if (Object.keys(this.props.menu).length > 0) {
       tableBody =
         <tbody>
@@ -22,25 +24,40 @@ class Sidebar extends Component {
         </tbody>
     }
     return (
-      <div>
+      <div
+      // style={fullW}
+      >
         <h3>My dinner</h3>
-        <p>
+        {/* <p>
           People:
-          <input
+          <input className=""
             type="number"
             value={this.props.nGuests}
             onChange={(e) => this.props.changeNGuests(e.target.value)}
           />
           <br />
           Total number of guests: {this.props.nGuests}
-        </p>
+        </p> */}
+        <h6 class="btn">
+          People: {this.props.nGuests}
+        </h6>
+        <div class="btn-group">
+          <button onClick={()=>this.props.changeNGuests(-1)}
+            class="btn btn-outline-dark btn-sm">
+            -
+          </button>
+          <button onClick={()=>this.props.changeNGuests(1)}
+            class="btn btn-outline-dark btn-sm">
+            +
+          </button>
+        </div>
+
         <table className="table">
           <thead className="thead-dark">
             <tr>
               <th>dish name</th>
               <th>cost</th>
             </tr>
-
           </thead>
           {tableBody}
           <tfoot>

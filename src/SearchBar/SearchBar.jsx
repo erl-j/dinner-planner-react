@@ -12,7 +12,7 @@ class SearchBar extends Component {
 
     searchAction = () => this.props.searchDishes(this.state.searchTerms);
     render() {
-        return <div>
+        return <div className="border-bottom">
             <input
                 onChange={(e) => this.setState({ searchTerms: e.target.value })}
             />
