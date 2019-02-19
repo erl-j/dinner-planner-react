@@ -9,12 +9,19 @@ class DinnerOverview extends Component {
                 <Link to="/search">
                 <button className="btn btn-outline-dark">Go back and edit dinner</button>
                 </Link>
+                <Link to="/printout">
+                <button className="btn btn-outline-dark">Print full ingredients list</button>
+                </Link>
                 <h3>{"Dinner for " + this.props.nGuests}</h3>
                 <div>
-                    {Object.values(this.props.menu).map(dsh => 
-                        <div key={dsh.id}>
-                            <h4>{dsh.title}</h4>
-                            <img src={"https://spoonacular.com/recipeImages/" + dsh.image}></img>
+                    {Object.values(this.props.menu).map(dish => 
+                        <div className="card faded" key={dish.id}
+                        >
+                          <img className="card-img-top forceRatio" src={dish.image}></img>
+                          <div className="card-body">
+                            <span className="card-text">{dish.title.length<14?dish.title:(dish.title.substring(0,11)+"...")}</span>
+                          </div>
+                        
                         </div>
                     )}
                 </div>
@@ -23,5 +30,6 @@ class DinnerOverview extends Component {
 
     }
 }
+
 
 export default DinnerOverview;

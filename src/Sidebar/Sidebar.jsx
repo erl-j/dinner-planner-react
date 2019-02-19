@@ -38,16 +38,16 @@ class Sidebar extends Component {
           <br />
           Total number of guests: {this.props.nGuests}
         </p> */}
-        <h6 class="btn">
+        <h6 className="btn">
           People: {this.props.nGuests}
         </h6>
-        <div class="btn-group">
+        <div className="btn-group">
           <button onClick={()=>this.props.changeNGuests(-1)}
-            class="btn btn-outline-dark btn-sm">
+            className="btn btn-outline-dark btn-sm">
             -
           </button>
           <button onClick={()=>this.props.changeNGuests(1)}
-            class="btn btn-outline-dark btn-sm">
+            className="btn btn-outline-dark btn-sm">
             +
           </button>
         </div>

@@ -10,6 +10,7 @@ class Welcome extends Component {
         <Link to="/search">
           <button>Start planning</button>
         </Link>
+        
       </div>
     );
   }

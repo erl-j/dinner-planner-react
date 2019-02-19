@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import Welcome from "./Welcome/Welcome";
 import SelectDish from "./SelectDish/SelectDish";
 import DinnerOverview from "./DinnerOverview/DinnerOverview";
+import Printout from "./Printout/Printout";
 import "./App.css";
 import "./data/API.js"
 import API from "./data/API.js";
@@ -16,12 +17,28 @@ import API from "./data/API.js";
 //       SearchResults
 //     DishDetails
 
-
+var storeState=(state)=> {
+  let stateStr=encodeURIComponent(JSON.stringify(state));
+  localStorage.setItem("state",stateStr);
+  
+}
+var getStoredState=()=> {
+  var decodedCookie = decodeURIComponent(localStorage.getItem("state"));
+  console.log(document.cookie);
+  try{
+  let state=JSON.parse(decodedCookie);
+  console.log(state);
+  return state;
+  }catch(err){
+    console.log(err);
+    return
+  }
+}
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = getStoredState()||{
       nGuests: 2,
       menu: {},
       isDinnerConfirmed:false
@@ -29,12 +46,15 @@ class App extends Component {
     this.api = new API();
     this.addToMenu = this.addToMenu.bind(this);
     this.removeFromMenu = this.removeFromMenu.bind(this);
+    this.changeNGuests=this.changeNGuests.bind(this);
   }
+
 
   addToMenu(type, dish) {
     let newMenu = this.state.menu;
     newMenu[type] = dish;
     this.setState({ menu: newMenu });
+    
   }
 
   removeFromMenu(id) {
@@ -49,6 +69,14 @@ class App extends Component {
     this.setState({ menu: newMenu });
   }
 
+  changeNGuests(increment){
+    let newNGuests=Math.max(this.state.nGuests+increment,0);
+    this.setState({ nGuests: newNGuests});
+  }
+
+  componentDidMount() {
+    window.addEventListener("beforeunload", ()=>storeState(this.state));
+ }
 
   render() {
     return (
@@ -65,10 +93,7 @@ class App extends Component {
                 api={this.api}
                 nGuests={this.state.nGuests}
                 menu={this.state.menu}
-                changeNGuests={(increment) => {
-                  this.setState({ nGuests: Math.max(this.state.nGuests+increment, 0) });
-                  console.log("app says: changed number of guests");
-                }}
+                changeNGuests={this.changeNGuests}
                 addToMenu={this.addToMenu}
                 removeFromMenu={this.removeFromMenu}
                 onConfirmDinner={()=>this.setState({isDinnerConfirmed:true})}
@@ -77,6 +102,11 @@ class App extends Component {
           <Route path="/overview"
           render={()=>
             <DinnerOverview menu={this.state.menu} nGuests={this.state.nGuests}></DinnerOverview>
+          }
+          />
+           <Route path="/printout"
+          render={()=>
+            <Printout menu={this.state.menu} nGuests={this.state.nGuests}/>
           }
           />
         </header>
