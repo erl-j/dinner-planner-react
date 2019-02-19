@@ -9,9 +9,9 @@ const httpOptions = {
 
 class API {
 
-    searchDishes(query) {
-        console.log("(API) searching for dishes with:"+query);
-        const url = `${BASE_URL}/recipes/search?query=${query}`;
+    searchDishes(query,type) {
+        console.log(`searching for ${query} with type ${type}`);
+        const url = `${BASE_URL}/recipes/search?type=${type}&query=${query}`;
         return fetch(url, httpOptions).then(this.processResponse).then(data=>data.results);
     }
 
@@ -22,7 +22,6 @@ class API {
 
     processResponse(response) {
         if (response.ok) {
-            console.log(response);
             return response.json();
         }
         throw response;

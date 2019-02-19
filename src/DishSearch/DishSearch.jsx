@@ -13,16 +13,15 @@ class DishSearch extends Component {
     
   }
 
-    getDishes(query){
+    getDishes(query,type){
       this.setState({isSearching:true});
-      this.props.api.searchDishes(query).then((res)=>
+      this.props.api.searchDishes(query,type).then((res)=>
         {this.setState({searchResults:res,isSearching:false});
-          console.log(res);
         })
     }
 
     componentDidMount(){
-      this.getDishes("");
+      this.getDishes("","");
     }
     
     render() {

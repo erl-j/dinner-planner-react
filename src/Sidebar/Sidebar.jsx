@@ -13,9 +13,8 @@ class Sidebar extends Component {
       tableBody =
         <tbody>
           {Object.values(this.props.menu).map(dsh =>
-            <tr onClick={() => {
+            <tr className="flasher" onClick={() => {
               this.props.removeFromMenu(dsh.id);
-              console.log("should remove");
             }} key={dsh.id}>
               <td>{dsh.title.length < 20 ? dsh.title : dsh.title.substring(0, 17) + "..."}
               </td>

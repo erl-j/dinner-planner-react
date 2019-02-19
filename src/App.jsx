@@ -24,13 +24,11 @@ var storeState=(state)=> {
 }
 var getStoredState=()=> {
   var decodedCookie = decodeURIComponent(localStorage.getItem("state"));
-  console.log(document.cookie);
   try{
   let state=JSON.parse(decodedCookie);
-  console.log(state);
   return state;
   }catch(err){
-    console.log(err);
+    console.error(err);
     return
   }
 }
