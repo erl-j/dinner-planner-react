@@ -1,55 +1,61 @@
-import React, { Component } from "react";
-// Alternative to passing the moderl as the component property,
-// we can import the model instance directly
-import "./DishDetails.css";
-import IngredientsList from "../IngredientsList/IngredientsList";
-
+import React, { Component } from 'react';
+import './DishDetails.css';
+import IngredientsList from '../IngredientsList/IngredientsList';
+import { Link } from 'react-router-dom';
 
 class DishDetails extends Component {
-  constructor(props) {
-    super(props);
-    // We create the state to store the various statuses
-    // e.g. API data loading or error
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			dish: null,
+		};
+		// We create the state to store the various statuses
+		// e.g. API data loading or error
+	}
 
-  render() {
-    let content;
-    if (this.props.dish) {
-      content =
-        <div className="row mh-100 no-gutters">
-          <div className="col-sm-5">
-            <h3>{this.props.dish.title}</h3>
-            <button
-              className="btn btn-outline-dark"
-              onClick={() => this.props.onClickAdd(this.props.dish.title, this.props.dish)}>
-              Add this to menu
-            </button>
-            <button
-              className="btn btn-outline-dark"
-              onClick={() => this.props.onClickBack()}>
-              Back to search
-            </button>
-            <p>{this.props.dish.instructions}</p>
-          </div>
-          <div className="col-sm-4">
-            <IngredientsList
-              ingredients={this.props.dish.extendedIngredients}
-              nGuests={this.props.nGuests}
-              servings={this.props.dish.servings} />
-          </div>
-        </div>
-    }
-    else {
-      content = <div className="spinner-grow" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    }
-    return (
-      <div >
-        {content}
-      </div>
-    );
-  }
+	componentDidMount() {
+		this.props.api.getRecipe(this.props.match.params.id).then(res => this.setState({ dish: res }));
+	}
+
+	render() {
+		let content;
+		(this.props);
+		if (this.state.dish) {
+			content = (
+				<div className="row mh-100 no-gutters">
+					<div className="col-sm-5">
+						<h3>{this.state.dish.title}</h3>
+						<button
+							className="btn btn-outline-dark"
+							onClick={() => this.props.onClickAdd(this.state.dish.title, this.state.dish)}
+						>
+							Add this to menu
+						</button>
+
+						{this.props.history.length>1?<button className="btn btn-outline-dark" onClick={() => this.props.history.goBack()}>
+							Back to search
+						</button>:("")}
+
+						<p>{this.state.dish.instructions}</p>
+					</div>
+					<div className="col-sm-4">
+						<IngredientsList
+							ingredients={this.state.dish.extendedIngredients}
+							nGuests={this.props.nGuests}
+							servings={this.state.dish.servings}
+						/>
+					</div>
+				</div>
+			);
+		} else {
+			content = (
+				<div className="spinner-grow" role="status">
+					<span className="sr-only">Loading...</span>
+				</div>
+			);
+		}
+		return <div>{content}</div>;
+	}
 }
 
 export default DishDetails;

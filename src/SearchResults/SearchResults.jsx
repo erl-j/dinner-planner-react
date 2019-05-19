@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 // Alternative to passing the moderl as the component property,
 // we can import the model instance directly
 import "./SearchResults.css";
@@ -21,8 +22,9 @@ class SearchResults extends Component {
     }
     else{
     content = this.props.searchResults.map(dish => (
-      <div className="card" key={dish.id}
-      onClick={()=>this.props.onClickDish(dish.id)}
+      <Link key={dish.id} to={`/selectDish/dish/${dish.id}`}>
+      <div className="card" 
+      // onClick={()=>this.props.onClickDish(dish.id)}
       >
         <img className="card-img-top forceRatio" src={"https://spoonacular.com/recipeImages/"+dish.image}></img>
         <div className="card-body">
@@ -30,6 +32,7 @@ class SearchResults extends Component {
         </div>
       
       </div>
+      </Link>
     ));
     }
 

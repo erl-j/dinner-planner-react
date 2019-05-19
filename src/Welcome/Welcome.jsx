@@ -7,7 +7,7 @@ class Welcome extends Component {
     return (
       <div className="Welcome">
         <p>Welcome to the dinner planner React Startup code!</p>
-        <Link to="/search">
+        <Link to="/selectDish/search">
           <button>Start planning</button>
         </Link>
         

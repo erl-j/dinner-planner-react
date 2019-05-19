@@ -10,9 +10,8 @@ class Printout extends Component {
 
         return (
             <React.Fragment>
-                {console.log(this.props.menu)}
                 <h3>Dinner for {this.props.nGuests}</h3>
-                <Link to="/search">
+                <Link to="/selectDish/search?">
                 <button className="btn btn-outline-dark">Go back and edit dinner</button>
                 </Link>
                 {Object.values(this.props.menu)

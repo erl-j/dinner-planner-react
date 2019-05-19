@@ -6,7 +6,7 @@ class DinnerOverview extends Component {
     render() {
         return (
             <React.Fragment>
-                <Link to="/search">
+                <Link to="/selectDish/search?">
                 <button className="btn btn-outline-dark">Go back and edit dinner</button>
                 </Link>
                 <Link to="/printout">

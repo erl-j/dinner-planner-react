@@ -7,8 +7,6 @@ class Sidebar extends Component {
   render() {
     let tableBody;
 
-    let fullW = { width: '100%' }
-
     if (Object.keys(this.props.menu).length > 0) {
       tableBody =
         <tbody>

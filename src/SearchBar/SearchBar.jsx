@@ -1,48 +1,43 @@
-import React, { Component } from "react";
-import "./SearchBar.css";
+import React, { Component } from 'react';
+import './SearchBar.css';
+
+const types = [
+	'starter',
+	'main course',
+	'dessert',
+	'side dish',
+	'appetizer',
+	'salad',
+	'bread',
+	'breakfast',
+	'soup',
+	'beverage',
+	'sauce',
+	'drink',
+];
 
 class SearchBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            searchTerms: "",
-            type: ""
-        }
-        this.searchAction = this.searchAction.bind(this);
-    }
 
-    searchAction = () => this.props.searchDishes(this.state.searchTerms,this.state.type);
-    render() {
-        return <div className="border-bottom">
-            <input
-                onChange={(e) => this.setState({ searchTerms: e.target.value })}
-            />
-            <button
-                onClick={this.searchAction}
-            >Search</button>
-            <select onChange={(event)=>{
-                this.setState({type:event.target.value},()=>this.searchAction());
-                console.log(event.target.value);}}id="dropdown" className="btn btn-outline-dark">
-							<option value="">all</option>
-							<option value="starter">starter</option>
-							<option value="main course">main course</option>
-							<option value="dessert">dessert</option>
-							<option value="side dish">side dish</option>
-							<option value="appetizer">appetizer</option>
-							<option value="salad">salad</option>
-							<option value="bread">bread</option>
-							<option value="breakfast">breakfast</option>
-							<option value="soup">soup</option>
-							<option value="beverage">beverage</option>
-							<option value="sauce">sauce</option>
-							<option value="drink">drink</option>	
-					  </select> 
-        </div>;
-    }
-
+	render() {
+		return (
+			<div className="border-bottom">
+				<input defaultValue={this.props.query} onChange={e => this.props.setQuery( e.target.value )} />
+				<button onClick={this.props.search}>Search</button>
+				<select
+                    value={this.props.type}
+					onChange={event => {
+                        console.log(event.target);
+						this.props.setType(event.target.value,this.props.search);
+					}}
+					id="dropdown"
+					className="btn btn-outline-dark"
+				>
+					<option value="">all</option>
+					{types.map(t=><option key={t} value={t} >{t}</option>)}
+				</select>
+			</div>
+		);
+	}
 }
-
-
-
 
 export default SearchBar;
