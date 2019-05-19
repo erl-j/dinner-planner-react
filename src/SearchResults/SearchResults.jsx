@@ -20,7 +20,8 @@ class SearchResults extends Component {
     </div>
 
     }
-    else{
+    else if(this.props.searchResults){
+      
     content = this.props.searchResults.map(dish => (
       <Link key={dish.id} to={`/selectDish/dish/${dish.id}`}>
       <div className="card" 

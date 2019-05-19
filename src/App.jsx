@@ -39,8 +39,11 @@ class App extends Component {
 			nGuests: 2,
 			menu: {},
 			isDinnerConfirmed: false,
+			networkError: false
 		};
-		this.api = new API();
+
+		this.showError=this.showError.bind(this);
+		this.api = new API(this.showError);
 		this.addToMenu = this.addToMenu.bind(this);
 		this.removeFromMenu = this.removeFromMenu.bind(this);
 		this.changeNGuests = this.changeNGuests.bind(this);
@@ -50,6 +53,10 @@ class App extends Component {
 		let newMenu = this.state.menu;
 		newMenu[type] = dish;
 		this.setState({ menu: newMenu });
+	}
+
+	showError=()=>{
+		this.setState({networkError:true})
 	}
 
 	removeFromMenu(id) {
@@ -71,6 +78,7 @@ class App extends Component {
 
 	componentDidMount() {
 		window.addEventListener('beforeunload', () => storeState(this.state));
+		this.setState({networkError:false});
 	}
 
 	render() {
@@ -78,6 +86,7 @@ class App extends Component {
 			<div className="App">
 				<header className="App-header">
 					<h1 className="App-title">Dinner Planner</h1>
+					{this.state.networkError?<h1 className="error">Network Error</h1>:""}
 					<BrowserRouter>
 						<React.Fragment>
 							{/* We rended diffrent component based on the path */}
